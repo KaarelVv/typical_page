@@ -4,7 +4,7 @@ import Card from '../UI/Card'
 import Button from '../UI/Button'
 import { useEffect, useState } from 'react'
 
-const Login = () => {
+const Login = (props) => {
 
     const [enteredEmail, setEnteredEmail] = useState('')
     const [enteredPassword, setEnteredPassword] = useState('')
@@ -38,10 +38,14 @@ const Login = () => {
         setPasswordIsValid(enteredPassword.trim().length > 6)
     }
 
+    const submitHandler = (event) => {
+        event.preventDefault()
+        props.onLogin(enteredEmail, enteredPassword)
+    } 
 
     return (
         <Card className='login'>
-            <form>
+            <form onSubmit={submitHandler}>
                 <div className={`control ${emailIsValid === false ? 'invalid' : ''}`}>
                     <label for='email'>Email</label>
                     <input
